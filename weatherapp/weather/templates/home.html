@@ -3,55 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather App</title>
-    {%load static%}
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SkyCast | Premium Weather Experience</title>
+    
+    {% load static %}
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
     <style>
-        .col{
-            background-image: url("{% static 'clear-sky.gif' %}");
-            background-position: left;
-            height: 350px;
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            width: fit-content;
-            height: fit-content;
-        }
-
-        body{
-            background-image: url("{% static 'backcover.jpg' %}");
-            background-repeat: no-repeat;
-            background-size: cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-        }
-
+        /* Dynamic Background support if assets exist */
+        {% if data.weather %}
+            body {
+                /* Subtle overlay based on weather could be added here */
+            }
+        {% endif %}
     </style>
 </head>
 <body>
-    <center >
-        <div class="col">
-            <h1 style="color: rgb(194, 73, 123);">Weather</h1>
-            <form method="post">
-                {% csrf_token %}
-                <input type="text" name="city" placeholder="Enter City Name" style="text-align: center; border-color: rgb(216, 78, 124); border-radius: 8px;"><br><br>
-                <button class="button" type="submit" style="background-color: rgb(69, 207, 120);color: white; border-radius: 8px;">Get Weather</button>
-            </form>
-             {% if data.city %}
-                    <h3>Weather for {{data.city}}</h3>
-                    <h3>Date : {{data.date}}</h3>
-                    <h3>Day : {{data.day}}</h3>
-                    <h3>Coordinate : {{data.coordinate}}</h3>
-                    <h3>Tempature : {{data.temp}}</h3>
-                    <h3>Humidity : {{data.humidity}}</h3>
-                    <h3>Condition : {{data.weather}}</h3>
-            {% endif %} 
+    <div class="weather-container">
+        <h1>SkyCast</h1>
+        
+        <form method="POST" class="search-box" autocomplete="off">
+            {% csrf_token %}
+            <input type="text" name="city" placeholder="Search for a city..." required>
+            <button type="submit" class="btn-get">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </form>
+
+        {% if error %}
+        <div class="error-msg">
+            <i class="fa-solid fa-circle-exclamation"></i> {{ error }}
         </div>
-    </center>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+        {% endif %}
+
+        {% if data.city %}
+        <div class="weather-info">
+            <div class="city-name">{{ data.city }}</div>
+            <div class="date-info">{{ data.day }}, {{ data.date }}</div>
+            
+            <div class="temp-main">
+                {{ data.temp }}<span class="temp-unit">°C</span>
+            </div>
+            
+            <div class="weather-condition">
+                <img src="http://openweathermap.org/img/wn/{{ data.icon }}@2x.png" alt="{{ data.weather }}" class="icon-img">
+                <span>{{ data.weather }}</span>
+            </div>
+
+            <div class="details-grid">
+                <div class="detail-item">
+                    <i class="fa-solid fa-thermometer"></i>
+                    <span class="detail-label">Feels Like</span>
+                    <span class="detail-value">{{ data.feels_like }}°C</span>
+                </div>
+                <div class="detail-item">
+                    <i class="fa-solid fa-droplet"></i>
+                    <span class="detail-label">Humidity</span>
+                    <span class="detail-value">{{ data.humidity }}%</span>
+                </div>
+                <div class="detail-item">
+                    <i class="fa-solid fa-wind"></i>
+                    <span class="detail-label">Wind</span>
+                    <span class="detail-value">{{ data.wind_speed }} m/s</span>
+                </div>
+                <div class="detail-item">
+                    <i class="fa-solid fa-location-crosshairs"></i>
+                    <span class="detail-label">Coords</span>
+                    <span class="detail-value" style="font-size: 0.8rem;">{{ data.coordinate }}</span>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="weather-info" style="margin-top: 40px; color: var(--text-glass);">
+            <i class="fa-solid fa-cloud-sun" style="font-size: 4rem; margin-bottom: 20px; opacity: 0.5;"></i>
+            <p>Enter a city to see the weather forecast</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Script for subtle animations or interactions -->
+    <script>
+        document.querySelector('form').addEventListener('submit', function() {
+            const btn = this.querySelector('.btn-get');
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
+            btn.disabled = true;
+        });
+    </script>
 </body>
-</html>   
+</html>
