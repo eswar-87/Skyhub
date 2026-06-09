@@ -1,8 +1,8 @@
-# SkyCast - Premium Weather Experience 🌤️
+# SkyHub - Premium Weather Experience 🌤️
 
-SkyCast is a modern, responsive, and premium weather dashboard built with **Django** and **OpenWeatherMap API**. It features a stunning glassmorphic UI, real-time weather data, and robust error handling.
+SkyHub is a modern, responsive, and premium weather dashboard built with **Django** and **OpenWeatherMap API**. It features a stunning glassmorphic UI, real-time weather data, and robust error handling.
 
-![SkyCast Preview](weatherapp/weather/static/css/style.css) 
+![SkyHub Preview](weatherapp/weather/static/css/style.css) 
 
 ## ✨ Features
 
@@ -24,8 +24,8 @@ SkyCast is a modern, responsive, and premium weather dashboard built with **Djan
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/eswar-87/WeatherApp.git
-   cd WeatherApp
+   git clone https://github.com/eswar-87/skyhub.git
+   cd skyhub
    ```
 
 2. **Initialize Environment Variables:**
