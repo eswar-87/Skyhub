@@ -32,11 +32,16 @@
     <div class="weather-container">
         <h1>SkyHub</h1>
         
-        <form method="POST" class="search-box" autocomplete="off">
+        <form method="POST" id="weather-form" class="search-box" autocomplete="off">
             {% csrf_token %}
-            <input type="text" name="city" placeholder="Search for a city..." required>
+            <input type="text" name="city" id="city-input" placeholder="Search for a city...">
+            <input type="hidden" name="lat" id="lat-input">
+            <input type="hidden" name="lon" id="lon-input">
             <button type="submit" class="btn-get">
                 <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            <button type="button" id="locate-btn" class="btn-get" style="background: linear-gradient(135deg, #10b981, #059669); margin-left: 5px;" title="Use my location">
+                <i class="fa-solid fa-location-dot"></i>
             </button>
         </form>
 
@@ -93,10 +98,36 @@
 
     <!-- Script for subtle animations or interactions -->
     <script>
-        document.querySelector('form').addEventListener('submit', function() {
+        const weatherForm = document.getElementById('weather-form');
+        const locateBtn = document.getElementById('locate-btn');
+        const cityInput = document.getElementById('city-input');
+        const latInput = document.getElementById('lat-input');
+        const lonInput = document.getElementById('lon-input');
+
+        weatherForm.addEventListener('submit', function(e) {
             const btn = this.querySelector('.btn-get');
             btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
-            btn.disabled = true;
+            // btn.disabled = true; // Allow multiple if needed, but usually good to disable
+        });
+
+        locateBtn.addEventListener('click', () => {
+            if (navigator.geolocation) {
+                locateBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        latInput.value = position.coords.latitude;
+                        lonInput.value = position.coords.longitude;
+                        cityInput.value = ''; // Clear city if using lat/lon
+                        weatherForm.submit();
+                    },
+                    (error) => {
+                        alert("Error getting location: " + error.message);
+                        locateBtn.innerHTML = '<i class="fa-solid fa-location-dot"></i>';
+                    }
+                );
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
         });
     </script>
 </body>
