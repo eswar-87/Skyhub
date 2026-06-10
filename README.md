@@ -3,7 +3,6 @@
 
 SkyHub is a modern, responsive, and premium weather dashboard built with **Django** and **OpenWeatherMap API**. It features a stunning glassmorphic UI, real-time weather data, and robust error handling.
 
-![SkyHub Preview](weatherapp/weather/static/css/style.css) 
 
 ##  Features
 
