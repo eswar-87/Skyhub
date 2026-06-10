@@ -1,12 +1,11 @@
-# SkyHub - Premium Weather Experience 🌤️
+# SkyHub 
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/eswar-87/skyhub)
 
 SkyHub is a modern, responsive, and premium weather dashboard built with **Django** and **OpenWeatherMap API**. It features a stunning glassmorphic UI, real-time weather data, and robust error handling.
 
 ![SkyHub Preview](weatherapp/weather/static/css/style.css) 
 
-## ✨ Features
+##  Features
 
 - **Glassmorphic UI**: A beautiful, translucent interface with backdrop-blurs and smooth animations.
 - **Real-time Data**: Accurate weather information including Temperature, Humidity, Wind Speed, and "Feels Like" conditions.
@@ -15,7 +14,7 @@ SkyHub is a modern, responsive, and premium weather dashboard built with **Djang
 - **Fully Responsive**: Optimized for Mobile, Tablet, and Desktop screens.
 - **Modern Tech Stack**: Built using Python, Django, CSS3, and FontAwesome.
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 
@@ -50,14 +49,14 @@ SkyHub is a modern, responsive, and premium weather dashboard built with **Djang
 5. **Open in Browser:**
    Navigate to `http://127.0.0.1:8000/`
 
-## 🛠️ Project Structure
+##  Project Structure
 
 - `weather/`: The main Django app containing weather logic.
 - `static/`: CSS and styling assets.
 - `templates/`: HTML templates for the dashboard.
 - `weatherapp/`: Project configuration and settings.
 
-## 📜 License
+##  License
 
 This project is open-source and available under the [MIT License](LICENSE).
 
